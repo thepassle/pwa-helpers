@@ -56,6 +56,7 @@ describe('PwaInstallButton', () => {
 
     el.click();
     
+    expect(el._deferredPrompt.prompt).called;
     expect(el.hidden).to.equal(true);
     await nextFrame();
     expect(el._deferredPrompt).to.equal(null);
@@ -77,7 +78,7 @@ describe('PwaInstallButton', () => {
     }
 
     el.click();
-
+    expect(el._deferredPrompt.prompt).called;
     expect(el.hidden).to.equal(false);
   });
 });
