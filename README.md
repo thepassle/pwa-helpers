@@ -49,7 +49,7 @@ Make sure your PWA meets the installable criteria, which you can find  [here](ht
 
 !! This web component requires additions to your service worker !!
 
-`<pwa-install-button>` is a zero dependency web component that lets users easily show a 'update available' notification.
+`<pwa-update-available>` is a zero dependency web component that lets users easily show a 'update available' notification.
 
 `<pwa-update-available>` will have a `hidden` attribute until the [updatefound](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration#Examples) notification is sent, and the new service worker is succesfully installed. Do note that `installed` is not the same as `activated`; your new service worker may be `installed`, but it may _not_ be controlling the page yet, in which case it will be in the `waiting` state instead.
 
