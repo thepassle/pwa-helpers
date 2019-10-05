@@ -3,6 +3,7 @@ export class PwaUpdateAvailable extends HTMLElement {
     super();
     const shadow = this.attachShadow({mode: 'open'});
     shadow.innerHTML = `<button><slot>New update available!</slot></button>`;
+    this._refreshing = false;
   }
 
   connectedCallback() {
@@ -21,11 +22,10 @@ export class PwaUpdateAvailable extends HTMLElement {
         });
       });
 
-      let refreshing;
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (refreshing) return;
+        if (this._refreshing) return;
         window.location.reload();
-        refreshing = true;
+        this._refreshing = true;
       });
     }
   }
