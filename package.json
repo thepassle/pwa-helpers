@@ -1,11 +1,12 @@
 {
-  "name": "pwa-helpers",
-  "version": "0.0.0",
+  "name": "pwa-helpers-test",
+  "version": "0.0.1",
   "description": "Utilities for common patterns that help you build your Progressive Web App",
   "author": "Pascal Schilp",
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
+  "homepage": "https://github.com/thepassle/pwa-helpers",
   "scripts": {
     "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
     "start:compatibility": "es-dev-server --app-index demo/index.html --compatibility all --node-resolve --open --watch",
@@ -23,11 +24,8 @@
     "test:compatibility:watch": "karma start --compatibility all --auto-watch=true --single-run=false",
     "test:bs": "karma start karma.bs.config.js --compatibility all --coverage"
   },
-  "dependencies": {
-    "lit-html": "^1.0.0",
-    "lit-element": "^2.0.1"
-  },
   "devDependencies": {
+    "lit-html": "1.1.1",
     "@open-wc/eslint-config": "^1.0.0",
     "@open-wc/prettier-config": "^0.1.10",
     "@open-wc/testing": "^2.0.0",

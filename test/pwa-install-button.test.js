@@ -1,7 +1,7 @@
 import { html, fixture, expect, nextFrame } from '@open-wc/testing';
 import sinon from 'sinon';
 
-import '../pwa-install-button/pwa-install-button.js';
+import '../pwa-install-button.js';
 
 describe('PwaInstallButton', () => {
   it('is hidden by default', async () => {
@@ -47,15 +47,15 @@ describe('PwaInstallButton', () => {
 
     el._deferredPrompt = {
       prompt: sinon.spy(),
-      userChoice: new Promise((res) => {
+      userChoice: new Promise(res => {
         res({
-          outcome: 'accepted'
-        })
-      })
-    }
+          outcome: 'accepted',
+        });
+      }),
+    };
 
     el.click();
-    
+
     expect(el._deferredPrompt.prompt).called;
     expect(el.hidden).to.equal(true);
     await nextFrame();
@@ -70,12 +70,12 @@ describe('PwaInstallButton', () => {
 
     el._deferredPrompt = {
       prompt: sinon.spy(),
-      userChoice: new Promise((res) => {
+      userChoice: new Promise(res => {
         res({
-          outcome: 'declined'
-        })
-      })
-    }
+          outcome: 'declined',
+        });
+      }),
+    };
 
     el.click();
     expect(el._deferredPrompt.prompt).called;
