@@ -87,7 +87,7 @@ If you're manually writing your service worker, you can simply copy the code sni
 ```js
 self.addEventListener('message', function (event) {
   if (event.data.action === 'skipWaiting') {
-    return self.skipWaiting();
+    self.skipWaiting();
   }
 });
 ```
