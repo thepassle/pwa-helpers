@@ -32,6 +32,6 @@ export class PwaUpdateAvailable extends HTMLElement {
 
   _postMessage(e) {
     e.preventDefault();
-    this._newWorker.postMessage({ action: 'skipWaiting' });
+    this._newWorker.postMessage('skipWaiting');
   }
 }

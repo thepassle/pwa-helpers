@@ -85,8 +85,8 @@ If you're using workbox, make sure you're using `injectManifest`, and copy the c
 If you're manually writing your service worker, you can simply copy the code snippet down below anywhere in the global scope of your service worker.
 
 ```js
-self.addEventListener('message', function (event) {
-  if (event.data.action === 'skipWaiting') {
+self.addEventListener('message', function({data}) {
+  if (data === 'skipWaiting') {
     self.skipWaiting();
   }
 });
