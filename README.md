@@ -78,7 +78,7 @@ The next thing to do is update your service worker to listen for the `message` e
 
 #### Using Workbox
 
-If you're using workbox, make sure you're using `injectManifest`, and copy the code snippet down below into your service worker source file. If you're following open-wc recommendations, you can find this file in \<TODO\>.
+If you're using workbox, make sure you're using `injectManifest` mode, and copy the code snippet down below into your service worker source file.
 
 #### Manual approach
 
