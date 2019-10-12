@@ -130,7 +130,7 @@ Make sure your PWA meets the installable criteria, which you can find  [here](ht
 
 `<pwa-update-available>` will have a `hidden` attribute until the [updatefound](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration#Examples) notification is sent, and the new service worker is succesfully installed. Do note that `installed` is not the same as `activated`; your new service worker may be `installed`, but it may _not_ be controlling the page yet, in which case it will be in the `waiting` state instead.
 
-Clicking the `<pwa-update-available>` component will post a [message](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) to your service worker with a 'skipWaiting' action, which lets your new service worker take control of the page. The posted message looks like this: `{action: 'skipWaiting'}`.
+Clicking the `<pwa-update-available>` component will post a [message](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) to your service worker with `'skipWaiting'`, which lets your new service worker take control of the page.
 
 Instructions on how to catch this message in your service worker are described down below.
 
