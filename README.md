@@ -10,6 +10,26 @@ Other useful resources for developing Progressive Web Apps are:
 - [Service Workies](https://serviceworkies.com/) - Learn Service Workers inside and out with this game of Service Worker mastery
 - [PWA Builder Feature Store](https://www.pwabuilder.com/features) - Common recipes for building PWA's
 
+## Installation
+
+Installation
+```bash
+npm i --save pwa-helper-components
+```
+
+Importing like this will self register the web component:
+```js
+import 'pwa-helper-components/pwa-install-button.js';
+import 'pwa-helper-components/pwa-update-available.js';
+```
+
+If you want more control over the registration of the component, you can import the class and handle registration yourself:
+```js
+import { PwaInstallButton, PwaUpdateAvailable } from 'pwa-helper-components';
+
+customElements.define('my-install-button', PwaInstallButton);
+customElements.define('my-update-available', PwaUpdateAvailable);
+```
 
 ## `<pwa-install-button>`
 
