@@ -1,4 +1,4 @@
-# Pwa Helpers
+# Pwa Helper Components
 
 These are some utilities for common patterns that help you build your [Progressive Web App](https://developers.google.com/web/progressive-web-apps) (PWA). Not to be confused with [`@polymer/pwa-helpers`](https://www.npmjs.com/package/pwa-helpers).
 
@@ -38,6 +38,24 @@ You can also use a Web Component:
 ```html
 <pwa-install-button>
     <mwc-button>Install!</mwc-button>
+</pwa-install-button>
+```
+
+Instead of only showing a button, you can also make a custom app listing experience, as long as it contains a button:
+
+```html
+<pwa-install-button>
+  <img src="./app-logo.png"/>
+  <h1>MyApp</h1>
+  <h2>Key features:</h2>
+  <ul>
+    <li>Fast</li>
+    <li>Reliable</li>
+    <li>Offline first</li>
+  </ul>
+  <h2>Description:</h2>
+  <p>MyApp is an awesome Progressive Web App!</p>
+  <button>Install!</button>
 </pwa-install-button>
 ```
 
