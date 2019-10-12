@@ -34,6 +34,7 @@ customElements.define('my-update-available', PwaUpdateAvailable);
 ```
 <br/>
 <br/>
+
 ## `<pwa-install-button>`
 
 `<pwa-install-button>` is a zero dependency web component that lets users easily add a install button to their PWA.
