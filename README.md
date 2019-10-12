@@ -105,13 +105,14 @@ PwaInstallButton.addEventListener('pwa-installed', (event) => {
 ### Requirements
 
 Make sure your PWA meets the installable criteria, which you can find  [here](https://developers.google.com/web/fundamentals/app-install-banners/). You can find a tool to generate your `manifest.json` [here](https://www.pwabuilder.com/generate).
-
+<br/>
+<br/>
 
 ## `<pwa-update-available>`
-
+<br/>
 
 > 🚨 This web component requires a small addition to your service worker 🚨
-
+<br/>
 
 `<pwa-update-available>` is a zero dependency web component that lets users easily show a 'update available' notification.
 
