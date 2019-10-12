@@ -81,6 +81,8 @@ Instead of only showing a button, you can also make a custom app listing experie
 </pwa-install-button>
 ```
 
+Do note that you may want to defer the `<pwa-install-button>` becoming visible if you choose a pattern like this, as it may be obstructive to your user. You can do this by overriding the default `[hidden]` styling, and listening for the `pwa-installable` event.
+
 ### Events
 
 `<pwa-install-button>` will fire a `pwa-intallable` event when it becomes installable, and a `pwa-installed` event when the user has installed your PWA.
