@@ -1,5 +1,7 @@
 # Pwa Helper Components
 
+> This webcomponent follows [open-wc](https://www.open-wc.org/) recommendations.
+
 These are some utilities for common patterns that help you build your [Progressive Web App](https://developers.google.com/web/progressive-web-apps) (PWA). Not to be confused with [`@polymer/pwa-helpers`](https://www.npmjs.com/package/pwa-helpers).
 
 If you're new to building Progressive Web Apps, we recommend you read the [Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) by [Jake Archibald](https://twitter.com/jaffathecake), or take the free Udacity course at [Offline Web Applications](https://www.udacity.com/course/offline-web-applications--ud899).
@@ -79,13 +81,31 @@ Instead of only showing a button, you can also make a custom app listing experie
 </pwa-install-button>
 ```
 
+### Events
+
+`<pwa-install-button>` will fire a `pwa-intallable` event when it becomes installable, and a `pwa-installed` event when the user has installed your PWA.
+
+You can listen to these events like this:
+
+```js
+const PwaInstallButton = document.querySelector('pwa-install-button');
+
+PwaInstallButton.addEventListener('pwa-installable', (event) => {
+  console.log(event.detail); // true
+});
+
+PwaInstallButton.addEventListener('pwa-installed', (event) => {
+  console.log(event.detail); // true
+});
+```
+
 ### Requirements
 
 Make sure your PWA meets the installable criteria, which you can find  [here](https://developers.google.com/web/fundamentals/app-install-banners/). You can find a tool to generate your `manifest.json` [here](https://www.pwabuilder.com/generate).
 
 ## `<pwa-update-available>`
 
-!! This web component requires additions to your service worker !!
+> 🚨 This web component requires a small addition to your service worker 🚨
 
 `<pwa-update-available>` is a zero dependency web component that lets users easily show a 'update available' notification.
 
@@ -137,6 +157,20 @@ Prior art by:
 - [Morbidick](https://github.com/morbidick/serviceworker-helpers/blob/master/sw-update-toast.html)
 - [Workbox Advanced Recipes](https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users)
 
+### Events
+
+`<pwa-update-available>` will fire a `pwa-update-available` event when a update is available.
+
+You can listen to these events like this:
+
+```js
+const PwaUpdateAvailable = document.querySelector('pwa-update-available');
+
+PwaUpdateAvailable.addEventListener('pwa-update-available', (event) => {
+  console.log(event.detail); // true
+});
+```
+
 If you're interested in reading more about this subject, you can check out this blog: [How to Fix the Refresh Button When Using Service Workers](https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68).
 
 ## FAQ
@@ -149,9 +183,9 @@ Different browsers may use a different heuristic to fire subsequent BeforeInstal
 
 ### `skipWaiting` doesn't work!
 
-Your service worker may not call `skipWaiting` if there are tasks that are still running, like for example Event Sources, which are used by `es-dev-server` to reload the page on file changes.
+Your service worker may not call `skipWaiting` if there are tasks that are still running, like for example Event Sources, which are used by, for example, the `--watch` mode of [`es-dev-server`](https://open-wc.org/developing/es-dev-server.html#getting-started) in order to reload the page on file changes.
 
-If you want to test your service worker with your production build, you can remove the `--watch` flag from your `es-dev-server` script, or you can run a simple http-server with `npx http-server` on your `/dist` folder to make sure everything works as expected.
+If you want to test your service worker with your production build, you can remove the `--watch` flag from your [`es-dev-server`](https://open-wc.org/developing/es-dev-server.html#getting-started) script, or you can run a simple http-server with `npx http-server` on your `/dist` folder to make sure everything works as expected.
 
 
 ### Single Page Apps

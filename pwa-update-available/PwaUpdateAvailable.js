@@ -16,6 +16,7 @@ export class PwaUpdateAvailable extends HTMLElement {
           this._newWorker = reg.installing;
           this._newWorker.addEventListener('statechange', () => {
             if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
               this.removeAttribute('hidden');
             }
           });
