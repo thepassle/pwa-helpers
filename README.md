@@ -19,6 +19,16 @@ Installation
 npm i --save pwa-helper-components
 ```
 
+Via [unpkg](https://unpkg.com)
+```js
+import 'https://unpkg.com/pwa-helper-components/pwa-install-button.js';
+import 'https://unpkg.com/pwa-helper-components/pwa-update-available.js';
+
+// or:
+
+import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-helper-components/index.js';
+```
+
 Importing like this will self register the web component:
 ```js
 import 'pwa-helper-components/pwa-install-button.js';
