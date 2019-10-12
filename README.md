@@ -147,7 +147,7 @@ Currently it's not possible to skipWaiting without having to add code to your se
 ```html
 <!-- Will use the paragraph element -->
 <pwa-update-available>
-  <p>A new update is available! Click here to refresh.</p>
+  <p>A new update is available! Click here to update.</p>
 </pwa-update-available>
 ```
 
