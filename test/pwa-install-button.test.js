@@ -1,4 +1,4 @@
-import { html, fixture, expect, nextFrame } from '@open-wc/testing';
+import { html, fixture, expect, nextFrame, oneEvent } from '@open-wc/testing';
 import sinon from 'sinon';
 
 import '../pwa-install-button.js';
@@ -17,8 +17,13 @@ describe('PwaInstallButton', () => {
       <pwa-install-button></pwa-install-button>
     `);
 
-    window.dispatchEvent(new CustomEvent('beforeinstallprompt'));
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('beforeinstallprompt'));
+    });
 
+    const { detail } = await oneEvent(el, 'pwa-installable');
+
+    expect(detail).to.equal(true);
     expect(el.hidden).to.equal(false);
   });
 
@@ -38,6 +43,28 @@ describe('PwaInstallButton', () => {
     `);
 
     expect(el).lightDom.to.equal('<button>install me!</button>');
+  });
+
+  it('fires a `pwa-installed` event when the button is clicked', async () => {
+    const el = await fixture(html`
+      <pwa-install-button></pwa-install-button>
+    `);
+
+    el._deferredPrompt = {
+      prompt: sinon.spy(),
+      userChoice: new Promise(res => {
+        res({
+          outcome: 'accepted',
+        });
+      }),
+    };
+
+    setTimeout(() => {
+      el.click();
+    });
+
+    const { detail } = await oneEvent(el, 'pwa-installed');
+    expect(detail).to.equal(true);
   });
 
   it('becomes hidden when install prompt is accepted', async () => {

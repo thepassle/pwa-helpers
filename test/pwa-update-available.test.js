@@ -1,5 +1,5 @@
-import { html, fixture, expect } from '@open-wc/testing'; // eslint-disable-line
-import sinon from 'sinon'; // eslint-disable-line
+import { html, fixture, expect } from '@open-wc/testing';
+import sinon from 'sinon';
 
 import '../pwa-update-available.js';
 
