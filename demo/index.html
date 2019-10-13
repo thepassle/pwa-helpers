@@ -44,6 +44,12 @@
     <script type="module" src="https://unpkg.com/pwa-helper-components@0.0.1/pwa-install-button.js?module"></script>
     <script type="module" src="https://unpkg.com/@material/mwc-button@0.10.0/mwc-button.js?module"></script>
     <script>
+      const button = document.querySelector('pwa-install-button');
+      button.addEventListener('pwa-installable', ({detail}) => {
+        console.log(`Pwa installable: ${detail}!`);
+      });
+    </script>
+    <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js');
