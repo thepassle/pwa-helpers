@@ -49,7 +49,7 @@ customElements.define('my-update-available', PwaUpdateAvailable);
 
 `<pwa-install-button>` is a zero dependency web component that lets users easily add a install button to their PWA.
 
-You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.0.5/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
+You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.0.6/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
 
 `<pwa-install-button>` will have a `hidden` attribute until the [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) event is fired. It will hold on to the event, so the user can click the button whenever they are ready to install your app. It will also hold on to the event even if the user has declined the initial prompt. If they decline to install your app, and leave your page it may take some time before the browser sends another [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) again. See the FAQ for more information.
 
