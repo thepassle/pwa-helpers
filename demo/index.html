@@ -25,8 +25,13 @@
     </style>
   </head>
   <body>
+    <script>
+      if (!('serviceWorker' in navigator)) {
+        document.body.innerHTML = 'service worker is not supported in this browser :(';
+      };
+    </script>
     <h1><code>pwa-install-button</code></h1>
-    <b>This demo will not work when embedded. Make sure to check out the demo <a href="https://unpkg.com/pwa-helper-components@0.0.8/demo/index.html">here</a></a></b>
+    <b>This demo will not work when embedded in an iframe. Make sure to check out the demo <a href="https://unpkg.com/pwa-helper-components@0.0.9/demo/index.html">here</a></a></b>
     <p>Wait for it... (it may take some time for the <code>beforeinstallprompt</code> event to be fired)</p>
     <br>
     <h2>Using the default slot fallback button:</h2>
@@ -42,15 +47,14 @@
       <mwc-button raised label="Install me!"></mwc-button>
     </pwa-install-button>
 
-    <script type="module" src="https://unpkg.com/pwa-helper-components@0.0.8/pwa-install-button.js?module"></script>
+    <script type="module" src="https://unpkg.com/pwa-helper-components@0.0.9/pwa-install-button.js?module"></script>
     <script type="module" src="https://unpkg.com/@material/mwc-button@0.10.0/mwc-button.js?module"></script>
     <script>
       const button = document.querySelector('pwa-install-button');
       button.addEventListener('pwa-installable', ({detail}) => {
         console.log(`Pwa installable: ${detail}!`);
       });
-    </script>
-    <script>
+
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js').then(() => {
@@ -59,8 +63,6 @@
             console.log('Service worker not registered :-(');
           });
         });
-      } else {
-        document.body.innerHTML = 'Service worker is not supported in your browser :('
       };
     </script>
   </body>
