@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "pwa-install-button",
+      "attributes": [],
+      "properties": [],
+      "events": [
+        {
+          "name": "pwa-installed"
+        },
+        {
+          "name": "pwa-installable"
+        }
+      ],
+      "slots": []
+    },
+    {
+      "name": "pwa-update-available",
+      "attributes": [],
+      "properties": [],
+      "events": [
+        {
+          "name": "pwa-update-available"
+        }
+      ],
+      "slots": []
+    }
+  ]
+}
