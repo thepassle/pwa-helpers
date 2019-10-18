@@ -21,7 +21,7 @@ describe('PwaUpdateAvailable', () => {
       postMessage: sinon.spy(),
     };
     el.click();
-    expect(el._newWorker.postMessage).calledOnceWith('skipWaiting');
+    expect(el._newWorker.postMessage).calledOnceWith({ type: 'SKIP_WAITING' });
   });
 
   it('is visible when updatefound and statechange has been fired', async () => {

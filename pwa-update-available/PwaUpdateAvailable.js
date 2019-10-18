@@ -21,6 +21,12 @@ export class PwaUpdateAvailable extends HTMLElement {
             }
           });
         });
+
+        if (reg.waiting) {
+          this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
+          this._newWorker = reg.waiting;
+          this.removeAttribute('hidden');
+        }
       });
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -33,6 +39,6 @@ export class PwaUpdateAvailable extends HTMLElement {
 
   _postMessage(e) {
     e.preventDefault();
-    this._newWorker.postMessage('skipWaiting');
+    this._newWorker.postMessage({ type: 'SKIP_WAITING' });
   }
 }
