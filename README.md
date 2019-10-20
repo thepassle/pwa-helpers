@@ -14,19 +14,9 @@ Other useful resources for developing Progressive Web Apps are:
 
 ## Installation
 
-Installation
+Installation:
 ```bash
 npm i --save pwa-helper-components
-```
-
-Via [unpkg](https://unpkg.com)
-```js
-import 'https://unpkg.com/pwa-helper-components/pwa-install-button.js';
-import 'https://unpkg.com/pwa-helper-components/pwa-update-available.js';
-
-// or:
-
-import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-helper-components/index.js';
 ```
 
 Importing like this will self register the web component:
@@ -42,8 +32,16 @@ import { PwaInstallButton, PwaUpdateAvailable } from 'pwa-helper-components';
 customElements.define('my-install-button', PwaInstallButton);
 customElements.define('my-update-available', PwaUpdateAvailable);
 ```
-<br/>
-<br/>
+
+Or via [unpkg](https://unpkg.com):
+```js
+import 'https://unpkg.com/pwa-helper-components/pwa-install-button.js';
+import 'https://unpkg.com/pwa-helper-components/pwa-update-available.js';
+
+// or:
+
+import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-helper-components/index.js';
+```
 
 ## `<pwa-install-button>`
 
@@ -112,6 +110,7 @@ PwaInstallButton.addEventListener('pwa-installable', (event) => {
 
 PwaInstallButton.addEventListener('pwa-installed', (event) => {
   console.log(event.detail); // true
+  // You may want to use this event to send some data to your analytics
 });
 ```
 
@@ -119,14 +118,10 @@ PwaInstallButton.addEventListener('pwa-installed', (event) => {
 ### Requirements
 
 Make sure your PWA meets the installable criteria, which you can find  [here](https://developers.google.com/web/fundamentals/app-install-banners/). You can find a tool to generate your `manifest.json` [here](https://www.pwabuilder.com/generate).
-<br/>
-<br/>
 
 ## `<pwa-update-available>`
-<br/>
 
 > 🚨 This web component may require a small addition to your service worker if you're not using workbox 🚨
-<br/>
 
 `<pwa-update-available>` is a zero dependency web component that lets users easily show a 'update available' notification.
 
@@ -180,7 +175,7 @@ Prior art by:
 
 `<pwa-update-available>` will fire a `pwa-update-available` event when a update is available.
 
-You can listen to these events like this:
+You can listen to this event like this:
 
 ```js
 const PwaUpdateAvailable = document.querySelector('pwa-update-available');
