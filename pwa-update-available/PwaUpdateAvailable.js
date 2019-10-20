@@ -6,20 +6,20 @@ export class PwaUpdateAvailable extends HTMLElement {
     this._refreshing = false;
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     this.addEventListener('click', this._postMessage.bind(this));
     this.setAttribute('hidden', '');
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistration().then(reg => {
-        reg.addEventListener('updatefound', () => {
-          this._newWorker = reg.installing;
-          this._newWorker.addEventListener('statechange', () => {
-            if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
-              this.removeAttribute('hidden');
-            }
-          });
+      const reg = await navigator.serviceWorker.getRegistration();
+
+      reg.addEventListener('updatefound', () => {
+        this._newWorker = reg.installing;
+        this._newWorker.addEventListener('statechange', () => {
+          if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
+            this.removeAttribute('hidden');
+          }
         });
 
         if (reg.waiting) {

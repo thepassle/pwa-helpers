@@ -48,4 +48,30 @@ describe('PwaUpdateAvailable', () => {
 
     expect(el.hidden).to.equal(false);
   });
+
+  it('is visible when there already is a waiting service worker', async () => {
+    const addEventListener = (_, cb) => cb();
+
+    Object.defineProperty(window.navigator, 'serviceWorker', {
+      writable: true,
+      value: {
+        controller: true,
+        getRegistration: async () => ({
+          installing: {
+            state: 'not installed',
+            addEventListener,
+          },
+          waiting: true,
+          addEventListener,
+        }),
+        addEventListener: () => {},
+      },
+    });
+
+    const el = await fixture(html`
+      <pwa-update-available></pwa-update-available>
+    `);
+
+    expect(el.hidden).to.equal(false);
+  });
 });
