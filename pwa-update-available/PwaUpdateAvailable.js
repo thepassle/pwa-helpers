@@ -22,7 +22,7 @@ export class PwaUpdateAvailable extends HTMLElement {
           }
         });
 
-        if (reg.waiting) {
+        if (reg.waiting && navigator.serviceWorker.controller) {
           this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
           this._newWorker = reg.waiting;
           this.removeAttribute('hidden');
