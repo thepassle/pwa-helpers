@@ -2,7 +2,7 @@ export class PwaUpdateAvailable extends HTMLElement {
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = `<button><slot>New update available!</slot></button>`;
+    shadow.innerHTML = `<slot><button>New update available!</button></slot>`;
     this._refreshing = false;
   }
 
