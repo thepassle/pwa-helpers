@@ -141,15 +141,15 @@ Instructions on how to catch this message in your service worker are described d
 ### Usage:
 
 ```html
-<!-- Will use the default slot fallback content -->
+<!-- Will use the default slot fallback button -->
 <pwa-update-available>
 </pwa-update-available>
 ```
 
 ```html
-<!-- Will use the paragraph element -->
+<!-- Will use the provided button element -->
 <pwa-update-available>
-  <p>A new update is available! Click here to update.</p>
+  <button>A new update is available! Click here to update.</button>
 </pwa-update-available>
 ```
 
