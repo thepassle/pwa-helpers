@@ -47,7 +47,7 @@ import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-help
 
 `<pwa-install-button>` is a zero dependency web component that lets users easily add a install button to their PWA.
 
-You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.1.1/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
+You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.1.2/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
 
 `<pwa-install-button>` will have a `hidden` attribute until the [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) event is fired. It will hold on to the event, so the user can click the button whenever they are ready to install your app. It will also hold on to the event even if the user has declined the initial prompt. If they decline to install your app, and leave your page it may take some time before the browser sends another [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) again. See the FAQ for more information.
 
@@ -132,9 +132,9 @@ Make sure your PWA meets the installable criteria, which you can find  [here](ht
 
 `<pwa-update-available>` is a zero dependency web component that lets users easily show a 'update available' notification.
 
-`<pwa-update-available>` will have a `hidden` attribute until the [updatefound](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration#Examples) notification is sent, and the new service worker is succesfully installed. Do note that `installed` is not the same as `activated`; your new service worker may be `installed`, but it may _not_ be controlling the page yet, in which case it will be in the `waiting` state instead.
+`<pwa-update-available>` will have a `hidden` attribute until the [updatefound](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration#Examples) notification is sent, and the new service worker is succesfully installed.
 
-Clicking the `<pwa-update-available>` component will post a [message](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) to your service worker with `{type: 'SKIP_WAITING'}`, which lets your new service worker take control of the page.
+Clicking the `<pwa-update-available>` component will [post a message](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) to your service worker with a `{type: 'SKIP_WAITING'}` object, which lets your new service worker call `skipWaiting` and then reload the page on `controllerchange`.
 
 Instructions on how to catch this message in your service worker are described down below.
 
