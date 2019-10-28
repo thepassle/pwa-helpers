@@ -25,6 +25,8 @@ export class PwaInstallButton extends HTMLElement {
       this.dispatchEvent(new CustomEvent('pwa-installed', { detail: true }));
       this.setAttribute('hidden', '');
       this._deferredPrompt = null;
+    } else {
+      this.dispatchEvent(new CustomEvent('pwa-installed', { detail: false }));
     }
   }
 }

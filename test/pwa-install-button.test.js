@@ -45,7 +45,7 @@ describe('PwaInstallButton', () => {
     expect(el).lightDom.to.equal('<button>install me!</button>');
   });
 
-  it('fires a `pwa-installed` event when the button is clicked', async () => {
+  it('fires a `pwa-installed` event true when the button is clicked, and prompt is accepted', async () => {
     const el = await fixture(html`
       <pwa-install-button></pwa-install-button>
     `);
@@ -65,6 +65,28 @@ describe('PwaInstallButton', () => {
 
     const { detail } = await oneEvent(el, 'pwa-installed');
     expect(detail).to.equal(true);
+  });
+
+  it('fires a `pwa-installed` event false when the button is clicked, but prompt is dismissed', async () => {
+    const el = await fixture(html`
+      <pwa-install-button></pwa-install-button>
+    `);
+
+    el._deferredPrompt = {
+      prompt: sinon.spy(),
+      userChoice: new Promise(res => {
+        res({
+          outcome: 'dismissed',
+        });
+      }),
+    };
+
+    setTimeout(() => {
+      el.click();
+    });
+
+    const { detail } = await oneEvent(el, 'pwa-installed');
+    expect(detail).to.equal(false);
   });
 
   it('becomes hidden when install prompt is accepted', async () => {

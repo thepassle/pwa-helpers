@@ -47,7 +47,7 @@ import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-help
 
 `<pwa-install-button>` is a zero dependency web component that lets users easily add a install button to their PWA.
 
-You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.1.0/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
+You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.1.1/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
 
 `<pwa-install-button>` will have a `hidden` attribute until the [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) event is fired. It will hold on to the event, so the user can click the button whenever they are ready to install your app. It will also hold on to the event even if the user has declined the initial prompt. If they decline to install your app, and leave your page it may take some time before the browser sends another [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) again. See the FAQ for more information.
 
@@ -97,20 +97,27 @@ Do note that you may want to defer the `<pwa-install-button>` becoming visible i
 
 ### Events
 
-`<pwa-install-button>` will fire a `pwa-intallable` event when it becomes installable, and a `pwa-installed` event when the user has installed your PWA.
+`<pwa-install-button>` will fire a `pwa-intallable` event when it becomes installable, and a `pwa-installed` event when the user has installed your PWA. If the user has dismissed the prompt, a `pwa-installed` event will be fired with a false value.
 
 You can listen to these events like this:
 
 ```js
-const PwaInstallButton = document.querySelector('pwa-install-button');
+const pwaInstallButton = document.querySelector('pwa-install-button');
 
-PwaInstallButton.addEventListener('pwa-installable', (event) => {
+// The app is installable
+pwaInstallButton.addEventListener('pwa-installable', (event) => {
   console.log(event.detail); // true
 });
 
-PwaInstallButton.addEventListener('pwa-installed', (event) => {
+// User accepted the prompt
+pwaInstallButton.addEventListener('pwa-installed', (event) => {
   console.log(event.detail); // true
   // You may want to use this event to send some data to your analytics
+});
+
+// If the user dismisses the prompt
+pwaInstallButton.addEventListener('pwa-installed', (event) => {
+  console.log(event.detail); // false
 });
 ```
 
@@ -178,9 +185,9 @@ Prior art by:
 You can listen to this event like this:
 
 ```js
-const PwaUpdateAvailable = document.querySelector('pwa-update-available');
+const pwaUpdateAvailable = document.querySelector('pwa-update-available');
 
-PwaUpdateAvailable.addEventListener('pwa-update-available', (event) => {
+pwaUpdateAvailable.addEventListener('pwa-update-available', (event) => {
   console.log(event.detail); // true
 });
 ```
