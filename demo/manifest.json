@@ -6,7 +6,7 @@
     "display": "standalone",
     "orientation": "portrait",
     "Scope": ".",
-    "start_url": "/pwa-helper-components@0.1.3/demo/index.html",
+    "start_url": "/pwa-helper-components@0.2.0/demo/index.html",
     "icons": [
       {
         "src": "images/icons/icon-72x72.png",

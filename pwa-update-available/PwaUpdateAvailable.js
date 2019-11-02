@@ -21,13 +21,13 @@ export class PwaUpdateAvailable extends HTMLElement {
             this.removeAttribute('hidden');
           }
         });
-
-        if (reg.waiting && navigator.serviceWorker.controller) {
-          this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
-          this._newWorker = reg.waiting;
-          this.removeAttribute('hidden');
-        }
       });
+
+      if (reg.waiting && navigator.serviceWorker.controller) {
+        this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
+        this._newWorker = reg.waiting;
+        this.removeAttribute('hidden');
+      }
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (this._refreshing) return;
