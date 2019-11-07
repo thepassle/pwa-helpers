@@ -81,6 +81,22 @@ describe('PwaUpdateAvailable', () => {
     expect(el.hidden).to.equal(false);
   });
 
+  it('doesnt throw an error when there reg is undefined', async () => {
+    Object.defineProperty(window.navigator, 'serviceWorker', {
+      writable: true,
+      value: {
+        getRegistration: async () => undefined,
+      },
+    });
+
+    const el = await fixture(html`
+      <pwa-update-available></pwa-update-available>
+    `);
+
+    expect(el._newWorker).to.equal(undefined);
+    expect(el.hidden).to.equal(true);
+  });
+
   it('refreshes the page after controllerchange', async () => {
     const addEventListener = (_, cb) => cb();
 

@@ -13,20 +13,22 @@ export class PwaUpdateAvailable extends HTMLElement {
     if ('serviceWorker' in navigator) {
       const reg = await navigator.serviceWorker.getRegistration();
 
-      reg.addEventListener('updatefound', () => {
-        this._newWorker = reg.installing;
-        this._newWorker.addEventListener('statechange', () => {
-          if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
-            this.removeAttribute('hidden');
-          }
+      if (reg) {
+        reg.addEventListener('updatefound', () => {
+          this._newWorker = reg.installing;
+          this._newWorker.addEventListener('statechange', () => {
+            if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
+              this.removeAttribute('hidden');
+            }
+          });
         });
-      });
 
-      if (reg.waiting && navigator.serviceWorker.controller) {
-        this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
-        this._newWorker = reg.waiting;
-        this.removeAttribute('hidden');
+        if (reg.waiting && navigator.serviceWorker.controller) {
+          this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
+          this._newWorker = reg.waiting;
+          this.removeAttribute('hidden');
+        }
       }
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
