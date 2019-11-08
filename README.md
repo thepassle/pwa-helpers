@@ -7,6 +7,7 @@ These are some utilities for common patterns that help you build your [Progressi
 If you're new to building Progressive Web Apps, we recommend you read the [Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) by [Jake Archibald](https://twitter.com/jaffathecake), or take the free Udacity course at [Offline Web Applications](https://www.udacity.com/course/offline-web-applications--ud899).
 
 Other useful resources for developing Progressive Web Apps are:
+- [The Mental Gymnastics of Service Worker](https://jovial-davinci-20c5fc.netlify.com/) - A set of visualisations that guide you through the concepts of service worker step by step.
 - [Workbox](https://developers.google.com/web/tools/workbox) - Workbox is a set of libraries and Node modules that make it easy to cache assets and take full advantage of features used to build Progressive Web Apps.
 - [serviceworke.rs](https://serviceworke.rs/) - Common Service Worker patterns
 - [Service Workies](https://serviceworkies.com/) - Learn Service Workers inside and out with this game of Service Worker mastery
