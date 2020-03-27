@@ -48,7 +48,7 @@ import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-help
 
 `<pwa-install-button>` is a zero dependency web component that lets users easily add a install button to their PWA.
 
-You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.2.1/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
+You can find a live demo [here](https://unpkg.com/pwa-helper-components@0.2.2/demo/index.html). (Note: it may take a few seconds before the buttons become visible, because the `beforeinstallprompt` may not have fired yet)
 
 `<pwa-install-button>` will have a `hidden` attribute until the [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) event is fired. It will hold on to the event, so the user can click the button whenever they are ready to install your app. It will also hold on to the event even if the user has declined the initial prompt. If they decline to install your app, and leave your page it may take some time before the browser sends another [`beforeinstallprompt`](https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent) again. See the FAQ for more information.
 
@@ -194,6 +194,28 @@ pwaUpdateAvailable.addEventListener('pwa-update-available', (event) => {
 ```
 
 If you're interested in reading more about this subject, you can check out this blog: [How to Fix the Refresh Button When Using Service Workers](https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68).
+
+## `addPwaUpdateListener`
+
+Executes a callback whenever a new update is available. 
+
+If you're using the `<pwa-update-available>` component, it can happen that you're dynamically rendering the component, and have no way to listen to the `pwa-update-available` event, because your component is not actually in the DOM yet. But sometimes you may want to show a subtle indicator that an update is available, and need some way to find out that an update actually is available.
+
+### Usage
+
+Here's an example:
+
+```js
+addPwaUpdateListener((updateAvailable) => {
+  /* Using a web component: */
+  this.updateAvailable = updateAvailable;
+
+  /* Using (P)react: */
+  this.setState({
+    updateAvailable
+  })
+});
+```
 
 ## FAQ
 

@@ -1,11 +1,11 @@
-import { html, fixture, expect, nextFrame, oneEvent } from '@open-wc/testing';
+import { html, fixture, expect, nextFrame, oneEvent, fixtureSync } from '@open-wc/testing';
 import sinon from 'sinon';
 
 import '../pwa-install-button.js';
 
 describe('PwaInstallButton', () => {
-  it('is hidden by default', async () => {
-    const el = await fixture(html`
+  it('is hidden by default', () => {
+    const el = fixtureSync(html`
       <pwa-install-button></pwa-install-button>
     `);
 
@@ -50,7 +50,7 @@ describe('PwaInstallButton', () => {
       <pwa-install-button></pwa-install-button>
     `);
 
-    el._deferredPrompt = {
+    window.____pwa_install_button_deferred_prompt = {
       prompt: sinon.spy(),
       userChoice: new Promise(res => {
         res({
@@ -72,7 +72,7 @@ describe('PwaInstallButton', () => {
       <pwa-install-button></pwa-install-button>
     `);
 
-    el._deferredPrompt = {
+    window.____pwa_install_button_deferred_prompt = {
       prompt: sinon.spy(),
       userChoice: new Promise(res => {
         res({
@@ -94,7 +94,7 @@ describe('PwaInstallButton', () => {
       <pwa-install-button></pwa-install-button>
     `);
 
-    el._deferredPrompt = {
+    window.____pwa_install_button_deferred_prompt = {
       prompt: sinon.spy(),
       userChoice: new Promise(res => {
         res({
@@ -105,10 +105,11 @@ describe('PwaInstallButton', () => {
 
     el.click();
 
-    expect(el._deferredPrompt.prompt).called;
+    expect(window.____pwa_install_button_deferred_prompt.prompt).called;
+    await nextFrame();
     expect(el.hidden).to.equal(true);
     await nextFrame();
-    expect(el._deferredPrompt).to.equal(null);
+    expect(window.____pwa_install_button_deferred_prompt).to.equal(null);
   });
 
   it('stays visible when install prompt is declined', async () => {
@@ -117,7 +118,7 @@ describe('PwaInstallButton', () => {
     `);
     el.removeAttribute('hidden');
 
-    el._deferredPrompt = {
+    window.____pwa_install_button_deferred_prompt = {
       prompt: sinon.spy(),
       userChoice: new Promise(res => {
         res({
@@ -127,7 +128,7 @@ describe('PwaInstallButton', () => {
     };
 
     el.click();
-    expect(el._deferredPrompt.prompt).called;
+    expect(window.____pwa_install_button_deferred_prompt.prompt).called;
     expect(el.hidden).to.equal(false);
   });
 });
