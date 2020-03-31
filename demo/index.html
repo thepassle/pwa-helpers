@@ -72,20 +72,20 @@
     <pwa-dark-mode></pwa-dark-mode>
 
     <h2>Using a custom button:</h2>
-    <pwa-install-button>
+    <pwa-dark-mode>
       <button>Toggle dark mode!</button>
-    </pwa-install-button>
+    </pwa-dark-mode>
 
     <h2>Using a web component:</h2>
-    <pwa-install-button>
+    <pwa-dark-mode>
       <mwc-button raised label="Toggle dark mode!"></mwc-button>
-    </pwa-install-button>
+    </pwa-dark-mode>
 
-    <script type="module" src="https://unpkg.com/pwa-helper-components@0.2.6/pwa-install-button.js?module"></script>
-    <script type="module" src="https://unpkg.com/pwa-helper-components@0.2.6/pwa-dark-mode.js?module"></script>
+    <script type="module" src="https://unpkg.com/pwa-helper-components@0.2.7/pwa-install-button.js?module"></script>
+    <script type="module" src="https://unpkg.com/pwa-helper-components@0.2.7/pwa-dark-mode.js?module"></script>
     <script type="module" src="https://unpkg.com/@material/mwc-button@0.10.0/mwc-button.js?module"></script>
     <script type="module">
-      import {installDarkModeHandler} from 'https://unpkg.com/pwa-helper-components@0.2.6/index.js?module';
+      import {installDarkModeHandler} from 'https://unpkg.com/pwa-helper-components@0.2.7/index.js?module';
       installDarkModeHandler();
     </script>
     <script>
