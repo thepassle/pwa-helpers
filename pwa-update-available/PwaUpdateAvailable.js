@@ -7,12 +7,11 @@ export class PwaUpdateAvailable extends HTMLElement {
   }
 
   async connectedCallback() {
-    this.addEventListener('click', this._postMessage.bind(this));
     this.setAttribute('hidden', '');
+    this.addEventListener('click', this._postMessage.bind(this));
 
     if ('serviceWorker' in navigator) {
       const reg = await navigator.serviceWorker.getRegistration();
-
       if (reg) {
         reg.addEventListener('updatefound', () => {
           this._newWorker = reg.installing;

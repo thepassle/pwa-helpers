@@ -1,11 +1,11 @@
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent, fixtureSync } from '@open-wc/testing';
 import sinon from 'sinon';
 
 import '../pwa-update-available.js';
 
 describe('PwaUpdateAvailable', () => {
-  it('is hidden by default', async () => {
-    const el = await fixture(html`
+  it('is hidden by default', () => {
+    const el = fixtureSync(html`
       <pwa-update-available></pwa-update-available>
     `);
 
