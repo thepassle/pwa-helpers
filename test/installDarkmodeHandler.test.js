@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { installDarkmodeHandler } from '../index.js';
+import { installDarkModeHandler } from '../index.js';
 
 describe('installDarkmodeHandler', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('installDarkmodeHandler', () => {
         addListener: () => false,
       }),
     });
-    installDarkmodeHandler();
+    installDarkModeHandler();
     expect(document.getElementsByTagName('html')[0].classList.contains('dark')).to.equal(false);
   });
 
@@ -27,19 +27,19 @@ describe('installDarkmodeHandler', () => {
         addListener: () => true,
       }),
     });
-    installDarkmodeHandler();
+    installDarkModeHandler();
     expect(document.getElementsByTagName('html')[0].classList.contains('dark')).to.equal(true);
   });
 
   it('renders darkmode is the user preference is dark', async () => {
     localStorage.setItem('darkmode', 'true');
-    installDarkmodeHandler();
+    installDarkModeHandler();
     expect(document.getElementsByTagName('html')[0].classList.contains('dark')).to.equal(true);
   });
 
   it('renders darkmode is the user preference is light', async () => {
     localStorage.setItem('darkmode', 'false');
-    installDarkmodeHandler();
+    installDarkModeHandler();
     expect(document.getElementsByTagName('html')[0].classList.contains('dark')).to.equal(false);
   });
 });

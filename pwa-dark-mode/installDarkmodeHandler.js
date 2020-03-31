@@ -4,7 +4,7 @@ const installMediaQueryWatcher = (mediaQuery, callback) => {
   callback(watchmedia.matches);
 };
 
-export function installDarkmodeHandler() {
+export function installDarkModeHandler() {
   installMediaQueryWatcher(`(prefers-color-scheme: dark)`, preference => {
     const localStorageDarkmode = localStorage.getItem('darkmode');
     const darkmodePreferenceExists = localStorageDarkmode !== null;

@@ -23,25 +23,28 @@ npm i --save pwa-helper-components
 Importing like this will self register the web component:
 ```js
 import 'pwa-helper-components/pwa-install-button.js';
+import 'pwa-helper-components/pwa-dark-mode.js';
 import 'pwa-helper-components/pwa-update-available.js';
 ```
 
 If you want more control over the registration of the component, you can import the class and handle registration yourself:
 ```js
-import { PwaInstallButton, PwaUpdateAvailable } from 'pwa-helper-components';
+import { PwaInstallButton, PwaUpdateAvailable, PwaDarkMode } from 'pwa-helper-components';
 
 customElements.define('my-install-button', PwaInstallButton);
 customElements.define('my-update-available', PwaUpdateAvailable);
+customElements.define('my-dark-mode', PwaDarkMode);
 ```
 
 Or via [unpkg](https://unpkg.com):
 ```js
 import 'https://unpkg.com/pwa-helper-components/pwa-install-button.js';
 import 'https://unpkg.com/pwa-helper-components/pwa-update-available.js';
+import 'https://unpkg.com/pwa-helper-components/pwa-dark-mode.js';
 
 // or:
 
-import { PwaInstallButton, PwaUpdateAvailable } from 'https://unpkg.com/pwa-helper-components/index.js';
+import { PwaInstallButton, PwaUpdateAvailable, PwaDarkMode } from 'https://unpkg.com/pwa-helper-components/index.js';
 ```
 
 ## `<pwa-install-button>`
@@ -216,6 +219,43 @@ addPwaUpdateListener((updateAvailable) => {
   })
 });
 ```
+
+## `<pwa-dark-mode>`
+
+`<pwa-update-available>` is a zero dependency web component that lets users toggle a 'dark' class on the html element, and effectively toggle darkmode on and off. It will also persist the preference in local storage. 
+
+When used in combination with `installDarkModeHandler`, you can very easily implement darkmode in your PWA. Just call the `installDarkModeHandler` whenever the page loads, and use the `<pwa-dark-mode>` anywhere in your app.
+
+### Usage
+
+You can provide your own button as a child of the `<pwa-dark-mode>`, or use the default (white-label) fallback button.
+
+```html
+<!-- Will use a slotted default fallback button -->
+<pwa-dark-mode>
+</pwa-dark-mode>
+```
+
+```html
+<!-- Will use the provided button element -->
+<pwa-dark-mode>
+    <button>Toggle dark mode!</button>
+</pwa-dark-mode>
+```
+
+## `installDarkModeHandler`
+
+Installs a `mediaQueryWatcher` that listens for `(prefers-color-scheme: dark)`, and toggles a dark mode class if appropriate. This means that on initial pageload:
+
+- If the user _hasn't_ manually set a dark mode preference yet, it will respect the systems preference
+- If the user _has_ set a preference, it will always respect that preference, because the user has opted into it.
+
+Dark mode preference is persisted in localstorage. Use with `<pwa-dark-mode>` to easily add a button that lets the user toggle between light and dark mode.
+
+```js
+import { installDarkModeHandler } from 'pwa-helper-components';
+```
+
 
 ## FAQ
 
