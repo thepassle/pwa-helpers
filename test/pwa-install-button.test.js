@@ -1,11 +1,11 @@
-import { html, fixture, expect, nextFrame, oneEvent, fixtureSync } from '@open-wc/testing';
+import { html, fixture, expect, nextFrame, oneEvent } from '@open-wc/testing';
 import sinon from 'sinon';
 
 import '../pwa-install-button.js';
 
 describe('PwaInstallButton', () => {
-  it('is hidden by default', () => {
-    const el = fixtureSync(html`
+  it('is hidden by default', async () => {
+    const el = await fixture(html`
       <pwa-install-button></pwa-install-button>
     `);
 
