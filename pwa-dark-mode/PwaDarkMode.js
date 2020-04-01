@@ -14,9 +14,11 @@ export class PwaDarkMode extends HTMLElement {
     if (document.getElementsByTagName('html')[0].classList.contains('dark')) {
       document.getElementsByTagName('html')[0].classList.remove('dark');
       localStorage.setItem('darkmode', 'false');
+      if (this.callback) this.callback(false);
     } else {
       document.getElementsByTagName('html')[0].classList.add('dark');
       localStorage.setItem('darkmode', 'true');
+      if (this.callback) this.callback(true);
     }
   }
 }
