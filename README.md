@@ -222,9 +222,9 @@ addPwaUpdateListener((updateAvailable) => {
 
 ## `<pwa-dark-mode>`
 
-`<pwa-update-available>` is a zero dependency web component that lets users toggle a 'dark' class on the html element, and effectively toggle darkmode on and off. It will also persist the preference in local storage. 
+`<pwa-update-available>` is a zero dependency web component that lets users toggle a 'dark' class on the html element, and effectively toggle darkmode on and off. It will also persist the preference in local storage. This web component should be used in combination with `installDarkModeHandler`.
 
-When used in combination with `installDarkModeHandler`, you can very easily implement darkmode in your PWA. Just call the `installDarkModeHandler` whenever the page loads, and use the `<pwa-dark-mode>` anywhere in your app.
+When used in combination with `installDarkModeHandler`, you can very easily implement darkmode in your PWA. Just call the `installDarkModeHandler` whenever the page loads to respect either the systems darkmode preference, or if a visitor has already manually set a preference; use that instead, and use the `<pwa-dark-mode>` anywhere in your app to toggle the darkmode state.
 
 ### Usage
 
@@ -239,7 +239,7 @@ You can provide your own button as a child of the `<pwa-dark-mode>`, or use the 
 ```html
 <!-- Will use the provided button element -->
 <pwa-dark-mode>
-    <button>Toggle dark mode!</button>
+  <button>Toggle dark mode!</button>
 </pwa-dark-mode>
 ```
 
@@ -248,13 +248,20 @@ You can provide your own button as a child of the `<pwa-dark-mode>`, or use the 
 Installs a `mediaQueryWatcher` that listens for `(prefers-color-scheme: dark)`, and toggles a dark mode class if appropriate. This means that on initial pageload:
 
 - If the user _hasn't_ manually set a dark mode preference yet, it will respect the systems preference
-- If the user _has_ set a preference, it will always respect that preference, because the user has opted into it.
+- If the user _has_ set a preference, it will always respect that preference, because the user has manually opted into it.
 
 Dark mode preference is persisted in localstorage. Use with `<pwa-dark-mode>` to easily add a button that lets the user toggle between light and dark mode.
+
+### Usage
+
+Simply import the handler, and call it on pageload (preferably early). The handler should only be installed **once**. 
+
+#### Basic
 
 ```js
 import { installDarkModeHandler } from 'pwa-helper-components';
 
+// Basic usage:
 installDarkModeHandler();
 ```
 
@@ -275,6 +282,60 @@ body {
   background-color: var(--my-bg-col);
   color: var(--my-text-col);
 }
+```
+
+#### Advanced
+
+You can also add a callback to execute whenever darkmode is changed to do extra work, like changing favicons.
+
+`./utils/setFavicons.js`:
+```js
+export function setFavicons(darkMode) {
+  const [iconBig, iconSmall] = [...document.querySelectorAll("link[rel='icon']")];
+  const manifest = document.querySelector("link[rel='manifest']");
+  const theme_color = document.querySelector("meta[name='theme-color']");
+
+  if (darkMode) {
+    manifest.href = '/manifest-dark.json';
+    iconBig.href = 'src/assets/favicon-32x32-dark.png';
+    iconSmall.href = 'src/assets/favicon-16x16-dark.png';
+    theme_color.setAttribute('content', '#303136');
+  } else {
+    manifest.href = '/manifest.json';
+    iconBig.href = 'src/assets/favicon-32x32.png';
+    iconSmall.href = 'src/assets/favicon-16x16.png';
+    theme_color.setAttribute('content', '#ffffff');
+  }
+
+  document.getElementsByTagName('head')[0].appendChild(manifest);
+  document.getElementsByTagName('head')[0].appendChild(iconBig);
+  document.getElementsByTagName('head')[0].appendChild(iconSmall);
+  document.getElementsByTagName('head')[0].appendChild(theme_color);
+}
+```
+
+`./main.js`:
+```js
+import { setFavicons } from './utils/setFavicons.js';
+
+installDarkModeHandler((darkMode) => {
+  setFavicons(darkMode)
+});
+```
+
+Note that if you do this, you should also extend the `PwaDarkMode` web component and add a `callback` method, to make sure these changes also get applied if a user _manually_ changes the preference, rather than only changing the _systems_ preference:
+
+```js
+import { PwaDarkMode } from 'pwa-helper-components/pwa-dark-mode/PwaDarkMode.js';
+import { setFavicons } from './utils/setFavicons.js';
+
+class MyDarkMode extends PwaDarkMode {
+  callback(darkMode) {
+    setFavIcons(darkMode);
+  }
+}
+
+customElements.define('my-dark-mode', MyDarkMode);
 ```
 
 ## FAQ
