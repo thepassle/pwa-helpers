@@ -13,11 +13,10 @@ export function installDarkModeHandler(callback) {
     /* on initial pageload, decide darkmode on users system preference */
     if (!darkmodePreferenceExists) {
       if (preference) {
-        // localStorage.setItem('darkmode', 'true');
         document.getElementsByTagName('html')[0].classList.add('dark');
         if (callback) callback(true);
       } else {
-        // localStorage.setItem('darkmode', 'false');
+        document.getElementsByTagName('html')[0].classList.remove('dark');
         if (callback) callback(false); // eslint-disable-line
       }
     } else {
