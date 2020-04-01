@@ -33,7 +33,7 @@ describe('PwaDarkMode', () => {
   });
 
   describe('pwa-dark-mode callback', () => {
-    it('renders a default slotted button', async () => {
+    it('executes a callback if specified', async () => {
       const callbackSpy = sinon.spy();
       const MyCustomDarkMode = defineCE(
         class extends PwaDarkMode {
