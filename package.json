@@ -1,6 +1,6 @@
 {
   "name": "pwa-helper-components",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "Utilities for common patterns that help you build your Progressive Web App",
   "author": "Pascal Schilp",
   "license": "MIT",
