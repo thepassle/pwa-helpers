@@ -40,10 +40,13 @@ export class PwaUpdateAvailable extends HTMLElement {
         }
       }
 
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (this._refreshing) return;
-        window.location.reload();
-        this._refreshing = true;
+      navigator.serviceWorker.addEventListener('controllerchange', ({ target }) => {
+        if (target && target.controller && target.controller.state === 'activated') {
+          if (this._refreshing) return;
+
+          window.location.reload();
+          this._refreshing = true;
+        }
       });
     }
   }
