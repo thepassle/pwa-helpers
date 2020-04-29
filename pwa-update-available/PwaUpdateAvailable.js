@@ -39,15 +39,6 @@ export class PwaUpdateAvailable extends HTMLElement {
           }
         }
       }
-
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (this._newWorker && this._newWorker.state) {
-          if (this._refreshing) return;
-
-          window.location.reload();
-          this._refreshing = true;
-        }
-      });
     }
   }
 
@@ -62,5 +53,6 @@ export class PwaUpdateAvailable extends HTMLElement {
       e.preventDefault();
     }
     this._newWorker.postMessage({ type: 'SKIP_WAITING' });
+    window.location.reload();
   }
 }
