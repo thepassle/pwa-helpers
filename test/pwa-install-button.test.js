@@ -13,6 +13,8 @@ describe('PwaInstallButton', () => {
   });
 
   it('is visible when beforeinstallprompt has been fired', async () => {
+    const stub = sinon.stub(navigator, 'getInstalledRelatedApps').resolves([]);
+
     const el = await fixture(html`
       <pwa-install-button></pwa-install-button>
     `);
@@ -25,6 +27,18 @@ describe('PwaInstallButton', () => {
 
     expect(detail).to.equal(true);
     expect(el.hidden).to.equal(false);
+    stub.restore();
+  });
+
+  it('is not visible when the app is already installed', async () => {
+    const stub = sinon.stub(navigator, 'getInstalledRelatedApps').resolves(['foo']);
+
+    const el = await fixture(html`
+      <pwa-install-button></pwa-install-button>
+    `);
+
+    expect(el.hidden).to.equal(true);
+    stub.restore();
   });
 
   it('uses default slotted content', async () => {

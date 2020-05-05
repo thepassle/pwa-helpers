@@ -13,19 +13,29 @@ export class PwaInstallButton extends HTMLElement {
     shadow.innerHTML = `<slot><button>Install</button></slot>`;
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     this.setAttribute('hidden', '');
     this.addEventListener('click', this._handlePrompt.bind(this));
 
+    let relatedApps = [];
+    if ('getInstalledRelatedApps' in navigator) {
+      relatedApps = await navigator.getInstalledRelatedApps();
+    }
+    const appAlreadyInstalled = relatedApps.length > 0;
+
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
-      window.____pwa_install_button_deferred_prompt = e;
-      this.removeAttribute('hidden');
-      this.dispatchEvent(new CustomEvent('pwa-installable', { detail: true }));
+      if (!appAlreadyInstalled) {
+        window.____pwa_install_button_deferred_prompt = e;
+        this.removeAttribute('hidden');
+        this.dispatchEvent(new CustomEvent('pwa-installable', { detail: true }));
+      }
     });
 
     if (window.____pwa_install_button_installable) {
-      this.removeAttribute('hidden');
+      if (!appAlreadyInstalled) {
+        this.removeAttribute('hidden');
+      }
     }
   }
 
