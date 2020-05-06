@@ -8,7 +8,11 @@ export class PwaUpdateAvailable extends HTMLElement {
 
   async connectedCallback() {
     this.setAttribute('hidden', '');
-    this.addEventListener('click', this._postMessage.bind(this));
+    this.auto = this.hasAttribute('auto');
+    this.duration = this.getAttribute('duration') || 0;
+    if (!this.auto) {
+      this.addEventListener('click', this._postMessage.bind(this));
+    }
 
     if ('serviceWorker' in navigator) {
       const reg = await navigator.serviceWorker.getRegistration();
@@ -19,6 +23,9 @@ export class PwaUpdateAvailable extends HTMLElement {
             if (this._newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
               this.removeAttribute('hidden');
+              if (this.auto) {
+                this._timeoutBeforePostMessage();
+              }
             }
           });
         });
@@ -27,19 +34,25 @@ export class PwaUpdateAvailable extends HTMLElement {
           this.dispatchEvent(new CustomEvent('pwa-update-available', { detail: true }));
           this._newWorker = reg.waiting;
           this.removeAttribute('hidden');
+          if (this.auto) {
+            this._timeoutBeforePostMessage();
+          }
         }
       }
-
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (this._refreshing) return;
-        window.location.reload();
-        this._refreshing = true;
-      });
     }
   }
 
+  _timeoutBeforePostMessage() {
+    setTimeout(() => {
+      this._postMessage();
+    }, this.duration);
+  }
+
   _postMessage(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this._newWorker.postMessage({ type: 'SKIP_WAITING' });
+    window.location.reload();
   }
 }
